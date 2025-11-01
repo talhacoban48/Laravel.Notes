@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\TodoPriorityEnum;
+use App\Enums\TodoStatusEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,8 +23,8 @@ class TodoFactory extends Factory
             "description" => fake()->paragraph(3),
             "user_id" => fake()->randomNumber(1,30),
             "category_id" => fake()->randomNumber(1,30),
-            "status" => fake()->randomElement(["pending", "in_progress", "completed"]),
-            "priority" => fake()->randomElement(["low", "medium", "high"]),
+            "status" => fake()->randomElement(TodoStatusEnum::cases()),
+            "priority" => fake()->randomElement(TodoPriorityEnum::cases()),
             "due_date" => fake()->dateTimeBetween("-1 week", "+1 week"),
             "completed_at" => fake()->dateTimeBetween("-1 week", "+1 week"),
             "is_starred" => fake()->boolean(10),

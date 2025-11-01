@@ -2,39 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $categories = Category::all(); 
-        return view("categories.index", compact("categories"));
+        return view("pages.categories.index", compact("categories"));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        return view('categories.create');
+        return view('pages.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
         // validation
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:100',
-            'color' => 'nullable|string|max:10',
-            'description' => 'nullable|string|max:1000'
-        ]);
+        $validatedData = $request->validated();
 
         // $name = $request->input("name");
         // $color = $request->input("color");
@@ -48,31 +47,27 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Category $category): View
     {
-        return view("categories.show", compact("category"));
+        return view("pages.categories.show", compact("category"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Category $category): View
     {
-        return view("categories.edit", compact("category"));
+        return view("pages.categories.edit", compact("category"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
 
         // validation
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:100',
-            'color' => 'nullable|string|max:10',
-            'description' => 'nullable|string|max:1000'
-        ]);
+        $validatedData = $request->validated();
 
         $category->update($validatedData);
 
@@ -82,7 +77,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
         return redirect()->route('categories.index');
