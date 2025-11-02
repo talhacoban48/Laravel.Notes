@@ -32,4 +32,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $categories->links('pagination::bootstrap-5') }}
 @endsection

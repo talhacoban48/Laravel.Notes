@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,4 +15,6 @@ Route::get('/', function () {
 // Route::post('/categories', [CategoryController::class, "store"])->name("categories.store");
 // Route::delete('/categories/{category}', [CategoryController::class, "destroy"])->name("categories.destroy");
 
+Route::put('todos/{todo}/check', [TodoController::class, 'check'])->name('todos.check');
 Route::resource('categories', CategoryController::class);
+Route::resource("todos", TodoController::class);
