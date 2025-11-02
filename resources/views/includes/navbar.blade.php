@@ -25,6 +25,18 @@
                     value="{{ request('search') }}" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            @auth
+                <form action="{{ route('logout') }}" class="d-flex" method="POST">
+                    @csrf
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                </form>
+            @endauth
+            @guest
+                <div class="d-flex">
+                    <a href="{{ route('login') }}" class="btn btn-outline-success ml-3">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary ml-3">Register</a>
+                </div>
+            @endguest
         </div>
     </div>
 </nav>
